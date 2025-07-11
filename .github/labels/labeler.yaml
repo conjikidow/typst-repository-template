@@ -1,0 +1,11 @@
+"tools":
+  - changed-files:
+    - any-glob-to-any-file: [".github/**"]
+
+"documentation":
+  - changed-files:
+    - any-glob-to-any-file: "**/*.md"
+
+"versioning":
+  - changed-files:
+    - any-glob-to-any-file: ".bumpversion.toml"
