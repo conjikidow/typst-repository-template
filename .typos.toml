@@ -1,4 +1,7 @@
 [default.extend-words]
+typ = "typ"
 
 [files]
-extend-exclude = []
+extend-exclude = [
+    "*.bib",
+]

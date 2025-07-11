@@ -20,7 +20,7 @@ jobs:
       - name: actions-template-sync
         uses: AndreasAugustin/actions-template-sync@bcb94410a4f1dffdfe5eaabc8234c3b8e76ebc5b # v2.5.1
         with:
-          source_repo_path: conjikidow/repository-template
+          source_repo_path: conjikidow/typst-repository-template
           upstream_branch: main
           pr_branch_name_prefix: 'workflow/sync-template'
           pr_labels: 'automated,template-sync'
