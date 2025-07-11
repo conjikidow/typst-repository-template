@@ -1,6 +1,6 @@
-# repository-template
+# typst-repository-template
 
-This is a general template repository.
+This is a template repository for Typst projects.
 
 ## GitHub Actions Permissions Setup
 
@@ -18,6 +18,16 @@ Follow these steps to configure the permissions:
 ![GitHub Actions permissions setup screenshot](https://github.com/user-attachments/assets/da55e896-e087-486e-aadc-7fc1283dc652)
 
 These settings are **necessary only for private repositories**. For public repositories, this configuration is not required.
+
+## CI Setup
+
+The CI workflow compiles the main Typst source file.
+You can specify its path in [`ci.yaml`](.github/workflows/ci.yaml#L11):
+
+```yaml
+env:
+  TYPST_MAIN_FILE: main.typ
+```
 
 ## Pre-commit Hooks Setup
 
@@ -39,11 +49,11 @@ Simply add one of these labels to your pull request before merging.
 A new pull request for the version bump will be automatically created.
 
 The version number is managed via the `.bumpversion.toml` file in the repository root.
-If your project defines its version in specific files (e.g., `pyproject.toml`, `Cargo.toml`, etc.), you may need to add entries like the following to `.bumpversion.toml`:
+If your project defines its version in specific files (e.g., `typst.toml`, etc.), you may need to add entries like the following to `.bumpversion.toml`:
 
 ```toml
 [[tool.bumpversion.files]]
-filename = "pyproject.toml"
+filename = "typst.toml"
 search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 ```
