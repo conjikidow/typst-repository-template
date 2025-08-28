@@ -104,8 +104,8 @@ jobs:
           fi
         shell: bash
 
-  compile-typst:
-    name: Compile Typst
+  build-typst:
+    name: Build Typst
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.typst == 'true' }}
     runs-on: ubuntu-latest
@@ -127,7 +127,7 @@ jobs:
         run: |
           typst --version
 
-      - name: Compile Typst file
+      - name: Build Typst file
         run: |
           mkdir -p build
           typst compile --root . "$TYPST_MAIN_FILE" "build/${TYPST_MAIN_FILE%.typ}.pdf"
