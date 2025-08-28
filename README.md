@@ -37,6 +37,14 @@ To enable pre-commit hooks in your repository, you need to install `pre-commit` 
 uvx pre-commit install
 ```
 
+The pre-commit hooks also rely on `typstyle` being installed locally. We recommend installing it with `cargo binstall`:
+
+```console
+cargo binstall typstyle
+```
+
+For other installation methods, please refer to the [official documentation](https://typstyle-rs.github.io/typstyle/installation.html).
+
 ## Version Bumping by Labels
 
 This repository is configured to automatically bump the version when a pull request is merged with one of the following labels:
