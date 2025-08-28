@@ -80,6 +80,30 @@ jobs:
             .
             .github/**
 
+  format-typst:
+    name: Format Typst
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.typst == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the main repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Run typstyle
+        uses: typstyle-rs/typstyle-action@v0.9.3
+
+      - name: Check formatting
+        run: |
+          # Show unified diff to help reviewers
+          git --no-pager diff
+          # Fail when there are changes
+          if ! git diff --quiet; then
+            echo "::error title=typstyle::Formatting required. Please run typstyle locally or push a commit with formatted files."
+            exit 1
+          fi
+        shell: bash
+
   compile-typst:
     name: Compile Typst
     needs: determine-changes
