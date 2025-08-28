@@ -1,4 +1,19 @@
 repos:
+  - repo: local
+    hooks:
+      - id: typstyle-format
+        name: typstyle format
+        entry: typstyle -i
+        language: system
+        files: \.typ$
+        args: []
+      - id: typstyle-check
+        name: typstyle check
+        entry: typstyle --check
+        language: system
+        files: \.typ$
+        stages: [pre-push]
+
   - repo: https://github.com/crate-ci/typos
     rev: v1.33.1
     hooks:
