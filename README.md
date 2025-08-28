@@ -1,5 +1,8 @@
 # typst-repository-template
 
+[![Typst Version](https://img.shields.io/badge/typst-0.12%20%7C%200.13-blue)](https://typst.app/)
+[![styled with typstyle](https://img.shields.io/badge/styled_with-typstyle-024a51.svg?style=flat)](https://github.com/typstyle-rs/typstyle)
+
 This is a template repository for Typst projects.
 
 ## GitHub Actions Permissions Setup
@@ -36,6 +39,14 @@ To enable pre-commit hooks in your repository, you need to install `pre-commit` 
 ```console
 uvx pre-commit install
 ```
+
+The pre-commit hooks also rely on `typstyle` being installed locally. We recommend installing it with `cargo binstall`:
+
+```console
+cargo binstall typstyle
+```
+
+For other installation methods, please refer to the [official documentation](https://typstyle-rs.github.io/typstyle/installation.html).
 
 ## Version Bumping by Labels
 
