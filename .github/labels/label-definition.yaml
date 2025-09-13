@@ -46,6 +46,4 @@
   description: "Versioning changes"
   color: "D6D6D6"
 
-- name: "template-sync"
-  description: "Synchronise template repository updates"
-  color: "D6D6D6"
+
