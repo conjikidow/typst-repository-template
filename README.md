@@ -24,12 +24,12 @@ These settings are **necessary only for private repositories**. For public repos
 
 ## CI Setup
 
-The CI workflow compiles the main Typst source file.
-You can specify its path in [`ci.yaml`](.github/workflows/ci.yaml#L11):
+The CI workflow compiles the main Typst source files.
+You can specify their paths as a space-separated list in [`ci.yaml`](.github/workflows/ci.yaml#L11):
 
 ```yaml
 env:
-  TYPST_MAIN_FILE: main.typ
+  TYPST_MAIN_FILES: "main.typ another.typ"
 ```
 
 ## Pre-commit Hooks Setup
