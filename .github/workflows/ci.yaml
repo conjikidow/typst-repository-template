@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  TYPST_MAIN_FILE: main.typ
+  TYPST_MAIN_FILES: main.typ # Space-separated list of main files
 
 jobs:
 
@@ -127,7 +127,9 @@ jobs:
         run: |
           typst --version
 
-      - name: Build Typst file
+      - name: Build Typst files
         run: |
           mkdir -p build
-          typst compile --root . "$TYPST_MAIN_FILE" "build/${TYPST_MAIN_FILE%.typ}.pdf"
+          for file in $TYPST_MAIN_FILES; do
+            typst compile --root . "$file" "build/${file%.typ}.pdf"
+          done
