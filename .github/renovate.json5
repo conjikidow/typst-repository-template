@@ -7,6 +7,9 @@
   "git-submodules": {
     enabled: true,
   },
+  "pre-commit": {
+    enabled: true,
+  },
   labels: [
     "automated",
     "dependencies",
