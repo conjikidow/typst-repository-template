@@ -129,7 +129,8 @@ jobs:
 
       - name: Build Typst files
         run: |
-          mkdir -p build
           for file in $TYPST_MAIN_FILES; do
-            typst compile --root . "$file" "build/${file%.typ}.pdf"
+            out="build/${file%.typ}.pdf"
+            mkdir -p "$(dirname "$out")"
+            typst compile --root . "$file" "$out"
           done
