@@ -1,18 +1,8 @@
 repos:
-  - repo: local
+  - repo: https://github.com/typstyle-rs/pre-commit-typstyle
+    rev: v0.14.0
     hooks:
-      - id: typstyle-format
-        name: typstyle format
-        entry: typstyle -i
-        language: system
-        files: \.typ$
-        args: []
-      - id: typstyle-check
-        name: typstyle check
-        entry: typstyle --check
-        language: system
-        files: \.typ$
-        stages: [pre-push]
+      - id: typstyle
 
   - repo: https://github.com/crate-ci/typos
     rev: v1.33.1
