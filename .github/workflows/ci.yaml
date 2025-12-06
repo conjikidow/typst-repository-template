@@ -119,7 +119,7 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Install Typst
-        uses: typst-community/setup-typst@cc7e12f160f0836bade6afcfbcf5da76c7a511bc # v4.3.0
+        uses: typst-community/setup-typst@48aeee7543d37f01afd1ffb27307dc277387ba13 # v4.3.1
         with:
           typst-version: ${{ matrix.typst-version }}
 
