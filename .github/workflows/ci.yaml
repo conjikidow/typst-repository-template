@@ -34,13 +34,14 @@ jobs:
         with:
           files_yaml: |
             src:
-              - src/**
+              - '**/src/**'
+              - '!**/src/**/*.md'
             doc:
-              - '**/**.md'
-              - docs/**
+              - '**/*.md'
+              - '**/docs/**'
             test:
-              - tests/**
-              - '!tests/**.md'
+              - '**/tests/**'
+              - '!**/tests/**/*.md'
             workflow:
               - .github/workflows/**
             typst:
