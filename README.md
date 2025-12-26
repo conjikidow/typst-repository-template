@@ -29,7 +29,7 @@ You can specify their paths as a space-separated list in [`ci.yaml`](.github/wor
 
 ```yaml
 env:
-  TYPST_MAIN_FILES: "main.typ another.typ"
+  TYPST_MAIN_FILES: 'main.typ another.typ'
 ```
 
 ## Pre-commit Hooks Setup
