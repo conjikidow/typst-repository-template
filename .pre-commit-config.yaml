@@ -2,7 +2,7 @@ default_stages: [pre-commit]
 
 repos:
   - repo: https://github.com/typstyle-rs/pre-commit-typstyle
-    rev: v0.14.0
+    rev: v0.14.4
     hooks:
       - id: typstyle
 
