@@ -34,7 +34,21 @@ env:
 
 ## Pre-commit Hooks Setup
 
-To enable pre-commit hooks in your repository, you need to install `pre-commit` by running the following command:
+This template recommends using [`prek`](https://prek.j178.dev) (a faster, drop-in alternative to [`pre-commit`](https://pre-commit.com)).
+
+Install the hooks by running:
+
+```console
+uvx prek install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
+```
+
+If `prek` is already installed:
+
+```console
+prek install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
+```
+
+If you prefer `pre-commit`:
 
 ```console
 uvx pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
