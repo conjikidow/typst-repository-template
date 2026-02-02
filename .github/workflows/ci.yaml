@@ -110,7 +110,7 @@ jobs:
           persist-credentials: false
 
       - name: Run typstyle
-        uses: typstyle-rs/typstyle-action@675cf7c33ccd7af5c612fa80b6d2555edf96ffd8 # v0.9.3
+        uses: typstyle-rs/typstyle-action@637f310823ba2247602dda2bdb9b25e037885970
 
       - name: Check formatting
         run: |
