@@ -1,6 +1,6 @@
 # typst-repository-template
 
-[![Typst Version](https://img.shields.io/badge/typst-0.12%20%7C%200.13-blue)](https://typst.app/)
+[![Typst Version](https://img.shields.io/badge/typst-0.12%20%7C%200.13%20%7C%200.14-blue)](https://typst.app/)
 [![styled with typstyle](https://img.shields.io/badge/styled_with-typstyle-024a51.svg?style=flat)](https://github.com/typstyle-rs/typstyle)
 
 This is a template repository for Typst projects.
