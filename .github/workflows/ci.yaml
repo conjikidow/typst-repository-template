@@ -60,6 +60,7 @@ jobs:
     if: ${{ needs.determine-changes.outputs.workflow == 'true' }}
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
       security-events: write
 
