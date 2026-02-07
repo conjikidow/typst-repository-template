@@ -2,6 +2,7 @@
 
 [![Typst Version](https://img.shields.io/badge/typst-0.12%20%7C%200.13%20%7C%200.14-blue)](https://typst.app/)
 [![styled with typstyle](https://img.shields.io/badge/styled_with-typstyle-024a51.svg?style=flat)](https://github.com/typstyle-rs/typstyle)
+[![prek](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/j178/prek/master/docs/assets/badge-v0.json)](https://github.com/j178/prek)
 
 This is a template repository for Typst projects.
 
@@ -34,7 +35,21 @@ env:
 
 ## Pre-commit Hooks Setup
 
-To enable pre-commit hooks in your repository, you need to install `pre-commit` by running the following command:
+This template recommends using [`prek`](https://prek.j178.dev) (a faster, drop-in alternative to [`pre-commit`](https://pre-commit.com)).
+
+Install the hooks by running:
+
+```console
+uvx prek install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
+```
+
+If `prek` is already installed:
+
+```console
+prek install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
+```
+
+If you prefer `pre-commit`:
 
 ```console
 uvx pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
