@@ -93,6 +93,10 @@ jobs:
   check-typos:
     name: Check typos
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
 
     steps:
       - name: Checkout the main repository
@@ -100,12 +104,23 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check spelling
-        uses: crate-ci/typos@57b11c6b7e54c402ccd9cda953f1072ec4f78e33 # v1.43.5
+      - name: Check spelling (github-check)
+        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
+        if: github.event_name != 'pull_request'
         with:
-          files: |
-            .
-            .github/**
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-check
+          fail_level: error
+          typos_flags: --hidden .
+
+      - name: Check spelling (github-pr-review)
+        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
+        if: github.event_name == 'pull_request'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          fail_level: error
+          typos_flags: --hidden .
 
   format-typst:
     name: Format Typst
