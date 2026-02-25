@@ -1,0 +1,22 @@
+---
+extends: default
+
+rules:
+  document-start:
+    present: true
+    ignore: |
+      .github/workflows/*.yml
+      .github/workflows/*.yaml
+      .pre-commit-config.yaml
+  truthy:
+    ignore: |
+      .github/workflows/*.yml
+      .github/workflows/*.yaml
+  comments:
+    ignore: |
+      .github/workflows/*.yml
+      .github/workflows/*.yaml
+  line-length:
+    ignore: |
+      .github/workflows/*.yml
+      .github/workflows/*.yaml

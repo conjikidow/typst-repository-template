@@ -22,6 +22,7 @@ jobs:
       src: ${{ steps.changed-files.outputs.src_any_changed }}
       doc: ${{ steps.changed-files.outputs.doc_any_changed }}
       test: ${{ steps.changed-files.outputs.test_any_changed }}
+      yaml: ${{ steps.changed-files.outputs.yaml_any_changed }}
       workflow: ${{ steps.changed-files.outputs.workflow_any_changed }}
       workflow_ci: ${{ steps.changed-files.outputs.workflow_ci_any_changed }}
       typst: ${{ steps.changed-files.outputs.typst_any_changed }}
@@ -47,6 +48,9 @@ jobs:
             test:
               - '**/tests/**'
               - '!**/tests/**/*.md'
+            yaml:
+              - '**/*.yml'
+              - '**/*.yaml'
             workflow:
               - .github/workflows/**
             workflow_ci:
@@ -88,6 +92,38 @@ jobs:
         uses: zizmorcore/zizmor-action@0dce2577a4760a2749d8cfb7a84b7d5585ebcb7d # v0.5.0
         # with:
         #   advanced-security: false  # must be false for private repo
+
+  lint-yaml:
+    name: Lint YAML
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.yaml == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout the main repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        if: github.event_name != 'pull_request'
+        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+
+      - name: Lint YAML
+        if: github.event_name != 'pull_request'
+        run: uvx yamllint .
+
+      - name: Lint YAML (reviewdog)
+        if: github.event_name == 'pull_request'
+        uses: reviewdog/action-yamllint@f01d8a48fd8d89f89895499fca2cff09f9e9e8c0 # v1.21.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          fail_level: error
+          yamllint_flags: .
 
   check-typos:
     name: Check typos
