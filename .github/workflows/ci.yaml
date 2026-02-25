@@ -70,15 +70,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run actionlint (github-check)
-        uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
+      - name: Run actionlint
         if: github.event_name != 'pull_request'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          fail_level: error
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
+          "$(go env GOPATH)/bin/actionlint" -color
 
-      - name: Run actionlint (github-pr-review)
+      - name: Run actionlint (reviewdog)
         uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
         if: github.event_name == 'pull_request'
         with:
@@ -104,16 +102,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check spelling (github-check)
-        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
+      - name: Check spelling
         if: github.event_name != 'pull_request'
+        uses: crate-ci/typos@57b11c6b7e54c402ccd9cda953f1072ec4f78e33 # v1.43.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          fail_level: error
-          typos_flags: --hidden .
+          files: |
+            .
+            .github/**
 
-      - name: Check spelling (github-pr-review)
+      - name: Check spelling (reviewdog)
         uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
         if: github.event_name == 'pull_request'
         with:
