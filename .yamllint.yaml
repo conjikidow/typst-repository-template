@@ -7,7 +7,6 @@ rules:
     ignore: |
       .github/workflows/*.yml
       .github/workflows/*.yaml
-      .pre-commit-config.yaml
   truthy:
     ignore: |
       .github/workflows/*.yml
@@ -17,6 +16,4 @@ rules:
       .github/workflows/*.yml
       .github/workflows/*.yaml
   line-length:
-    ignore: |
-      .github/workflows/*.yml
-      .github/workflows/*.yaml
+    max: 120
