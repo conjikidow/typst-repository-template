@@ -123,8 +123,7 @@ jobs:
           markdownlint_rc=0
           npx --yes markdownlint-cli2 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
           reviewdog_rc=0
-          cat /tmp/markdownlint-report.txt |
-            reviewdog \
+          reviewdog < /tmp/markdownlint-report.txt \
               -efm="%f:%l:%c %m" \
               -efm="%f:%l %m" \
               -name=markdownlint \
