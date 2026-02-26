@@ -6,7 +6,7 @@
   ],
   packageRules: [
     {
-      matchCategories: ["ci"],
+      matchFileNames: [".github/workflows/**"],
       addLabels: ["ci"],
       // automerge: true,
     },
@@ -14,7 +14,17 @@
       matchManagers: ["pre-commit"],
       addLabels: ["pre-commit"],
       // automerge: true,
-    }
+    },
+    {
+      matchFileNames: [".github/workflows/**"],
+      matchUpdateTypes: ["patch"],
+      automerge: true,
+    },
+    {
+      matchManagers: ["pre-commit"],
+      matchUpdateTypes: ["patch"],
+      automerge: true,
+    },
   ],
   regexManagers: [
     {
