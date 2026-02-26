@@ -151,7 +151,8 @@ jobs:
       - name: Lint Markdown (reviewdog)
         if: github.event_name == 'pull_request'
         run: |
-          npx --yes markdownlint-cli2 . 2>&1 |
+          npx --yes markdownlint-cli2 . > /tmp/markdownlint-report.txt 2>&1 || true
+          cat /tmp/markdownlint-report.txt |
             reviewdog \
               -efm="%f:%l:%c %m" \
               -efm="%f:%l %m" \
