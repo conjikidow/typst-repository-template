@@ -7,7 +7,9 @@ This is a template repository for Typst projects.
 
 ## GitHub Actions Permissions Setup
 
-To enable GitHub Actions to run properly in your repository, you need to adjust the default permissions granted to the `GITHUB_TOKEN`. This is especially important for **private repositories**.
+To enable GitHub Actions to run properly in your repository, you need to adjust the default permissions granted
+to the `GITHUB_TOKEN`.
+This is especially important for **private repositories**.
 
 Follow these steps to configure the permissions:
 
@@ -42,9 +44,11 @@ uvx pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type
 
 ## Commit Message Linting with Commitizen
 
-This template repository enforces [Conventional Commits](https://www.conventionalcommits.org) in pre-commit hooks and CI, so your commit messages must follow that format.
+This template repository enforces [Conventional Commits](https://www.conventionalcommits.org) in pre-commit hooks and CI,
+so your commit messages must follow that format.
 You can maintain Conventional Commits manually, but automation tools such as Commitizen or git-cz can help.
-Any tool is fine, but this repository uses [commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen) for checks, so it is recommended.
+Any tool is fine, but this repository uses [commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen)
+for checks, so it is recommended.
 
 Install Commitizen:
 
@@ -62,7 +66,8 @@ For more details, see [Commitizen documentation](https://commitizen-tools.github
 
 ## Version Bumping by Labels
 
-This repository is configured to automatically bump the version when a pull request is merged with one of the following labels:
+This repository is configured to automatically bump the version when a pull request is merged with one of the
+following labels:
 
 - `update::major`
 - `update::minor`
@@ -72,7 +77,8 @@ Simply add one of these labels to your pull request before merging.
 A new pull request for the version bump will be automatically created.
 
 The version number is managed via the `.bumpversion.toml` file in the repository root.
-If your project defines its version in specific files (e.g., `typst.toml`, etc.), you may need to add entries like the following to `.bumpversion.toml`:
+If your project defines its version in specific files (e.g., `typst.toml`, etc.),
+you may need to add entries like the following to `.bumpversion.toml`:
 
 ```toml
 [[tool.bumpversion.files]]
