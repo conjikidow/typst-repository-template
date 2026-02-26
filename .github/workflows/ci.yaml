@@ -115,7 +115,7 @@ jobs:
 
       - name: Lint Markdown
         if: github.event_name != 'pull_request'
-        run: npx --yes markdownlint-cli2 .
+        run: npx --yes markdownlint-cli2@0.21.0 .
 
       - name: Set up reviewdog
         if: github.event_name == 'pull_request'
@@ -125,7 +125,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           markdownlint_rc=0
-          npx --yes markdownlint-cli2 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
+          npx --yes markdownlint-cli2@0.21.0 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
           reviewdog_rc=0
           reviewdog < /tmp/markdownlint-report.txt \
               -efm="%f:%l:%c %m" \
@@ -163,7 +163,7 @@ jobs:
 
       - name: Lint YAML
         if: github.event_name != 'pull_request'
-        run: uvx yamllint .
+        run: uvx --from "yamllint==1.38.0" yamllint .
 
       - name: Lint YAML (reviewdog)
         if: github.event_name == 'pull_request'

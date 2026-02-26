@@ -20,6 +20,30 @@
     {
       fileMatch: ["^\\.github/workflows/ci\\.ya?ml$"],
       matchStrings: [
+        "go install github\\.com/rhysd/actionlint/cmd/actionlint@(?<currentValue>v\\S+)",
+      ],
+      datasourceTemplate: "github-releases",
+      depNameTemplate: "rhysd/actionlint",
+    },
+    {
+      fileMatch: ["^\\.github/workflows/ci\\.ya?ml$"],
+      matchStrings: [
+        "npx --yes markdownlint-cli2@(?<currentValue>\\S+) \\.",
+      ],
+      datasourceTemplate: "npm",
+      depNameTemplate: "markdownlint-cli2",
+    },
+    {
+      fileMatch: ["^\\.github/workflows/ci\\.ya?ml$"],
+      matchStrings: [
+        "uvx --from \"yamllint==(?<currentValue>\\S+)\" yamllint \\.",
+      ],
+      datasourceTemplate: "pypi",
+      depNameTemplate: "yamllint",
+    },
+    {
+      fileMatch: ["^\\.github/workflows/ci\\.ya?ml$"],
+      matchStrings: [
         "cargo install taplo-cli@(?<currentValue>\\S+) --locked",
       ],
       datasourceTemplate: "crate",
