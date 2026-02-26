@@ -20,10 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       src: ${{ steps.changed-files.outputs.src_any_changed }}
-      doc: ${{ steps.changed-files.outputs.doc_any_changed }}
       test: ${{ steps.changed-files.outputs.test_any_changed }}
       workflow: ${{ steps.changed-files.outputs.workflow_any_changed }}
       workflow_ci: ${{ steps.changed-files.outputs.workflow_ci_any_changed }}
+      md: ${{ steps.changed-files.outputs.md_any_changed }}
+      yaml: ${{ steps.changed-files.outputs.yaml_any_changed }}
       typst: ${{ steps.changed-files.outputs.typst_any_changed }}
 
     steps:
@@ -34,16 +35,13 @@ jobs:
           persist-credentials: false
 
       - name: Determine changed files
-        uses: tj-actions/changed-files@7dee1b0c1557f278e5c7dc244927139d78c0e22a # v47.0.4
         id: changed-files
+        uses: tj-actions/changed-files@7dee1b0c1557f278e5c7dc244927139d78c0e22a # v47.0.4
         with:
           files_yaml: |
             src:
               - '**/src/**'
               - '!**/src/**/*.md'
-            doc:
-              - '**/*.md'
-              - '**/docs/**'
             test:
               - '**/tests/**'
               - '!**/tests/**/*.md'
@@ -51,6 +49,13 @@ jobs:
               - .github/workflows/**
             workflow_ci:
               - .github/workflows/ci.yaml
+            md:
+              - '**/*.md'
+              - .markdownlint-cli2.yaml
+            yaml:
+              - '**/*.yml'
+              - '**/*.yaml'
+              - .yamllint.yaml
             typst:
               - '**/**.typ'
 
@@ -70,25 +75,101 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run actionlint (github-check)
-        uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
+      - name: Run actionlint
         if: github.event_name != 'pull_request'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          fail_level: error
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
+          "$(go env GOPATH)/bin/actionlint" -color
 
-      - name: Run actionlint (github-pr-review)
-        uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
+      - name: Run actionlint (reviewdog)
         if: github.event_name == 'pull_request'
+        uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
+          fail_level: error
 
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@0dce2577a4760a2749d8cfb7a84b7d5585ebcb7d # v0.5.0
         # with:
         #   advanced-security: false  # must be false for private repo
+
+  lint-markdown:
+    name: Lint Markdown
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.md == 'true' || needs.determine-changes.outputs.workflow_ci == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout the main repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Lint Markdown
+        if: github.event_name != 'pull_request'
+        run: npx --yes markdownlint-cli2 .
+
+      - name: Set up reviewdog
+        if: github.event_name == 'pull_request'
+        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
+
+      - name: Lint Markdown (reviewdog)
+        if: github.event_name == 'pull_request'
+        run: |
+          markdownlint_rc=0
+          npx --yes markdownlint-cli2 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
+          reviewdog_rc=0
+          cat /tmp/markdownlint-report.txt |
+            reviewdog \
+              -efm="%f:%l:%c %m" \
+              -efm="%f:%l %m" \
+              -name=markdownlint \
+              -reporter=github-pr-review \
+              -filter-mode=added \
+              -fail-level=error || reviewdog_rc=$?
+          if [ $markdownlint_rc -ne 0 ] && ! grep -Eq '^[^:]+:[0-9]+(:[0-9]+)? ' /tmp/markdownlint-report.txt; then
+            echo "::error title=markdownlint::markdownlint failed before producing parseable diagnostics"
+            exit $markdownlint_rc
+          fi
+          exit $reviewdog_rc
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lint-yaml:
+    name: Lint YAML
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.yaml == 'true' || needs.determine-changes.outputs.workflow_ci == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout the main repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        if: github.event_name != 'pull_request'
+        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+
+      - name: Lint YAML
+        if: github.event_name != 'pull_request'
+        run: uvx yamllint .
+
+      - name: Lint YAML (reviewdog)
+        if: github.event_name == 'pull_request'
+        uses: reviewdog/action-yamllint@f01d8a48fd8d89f89895499fca2cff09f9e9e8c0 # v1.21.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          fail_level: error
+          yamllint_flags: .
 
   check-typos:
     name: Check typos
@@ -104,18 +185,17 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check spelling (github-check)
-        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
+      - name: Check spelling
         if: github.event_name != 'pull_request'
+        uses: crate-ci/typos@57b11c6b7e54c402ccd9cda953f1072ec4f78e33 # v1.43.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          fail_level: error
-          typos_flags: --hidden .
+          files: |
+            .
+            .github/**
 
-      - name: Check spelling (github-pr-review)
-        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
+      - name: Check spelling (reviewdog)
         if: github.event_name == 'pull_request'
+        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
@@ -127,6 +207,9 @@ jobs:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.typst == 'true' || needs.determine-changes.outputs.workflow_ci == 'true' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout the main repository
@@ -137,13 +220,21 @@ jobs:
       - name: Run typstyle
         uses: typstyle-rs/typstyle-action@637f310823ba2247602dda2bdb9b25e037885970
 
+      - name: Suggest typstyle changes (reviewdog)
+        if: github.event_name == 'pull_request'
+        uses: reviewdog/action-suggester@aa38384ceb608d00f84b4690cacc83a5aba307ff # v1.24.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: typstyle
+
       - name: Check formatting
         run: |
           # Show unified diff to help reviewers
           git --no-pager diff
           # Fail when there are changes
           if ! git diff --quiet; then
-            echo "::error title=typstyle::Formatting required. Please run typstyle locally or push a commit with formatted files."
+            msg="Formatting required. Please run typstyle locally or push a commit with formatted files."
+            echo "::error title=typstyle::$msg"
             exit 1
           fi
         shell: bash
