@@ -25,6 +25,7 @@ jobs:
       workflow_ci: ${{ steps.changed-files.outputs.workflow_ci_any_changed }}
       md: ${{ steps.changed-files.outputs.md_any_changed }}
       yaml: ${{ steps.changed-files.outputs.yaml_any_changed }}
+      toml: ${{ steps.changed-files.outputs.toml_any_changed }}
       typst: ${{ steps.changed-files.outputs.typst_any_changed }}
 
     steps:
@@ -56,6 +57,9 @@ jobs:
               - '**/*.yml'
               - '**/*.yaml'
               - .yamllint.yaml
+            toml:
+              - '**/*.toml'
+              - .taplo.toml
             typst:
               - '**/**.typ'
 
@@ -169,6 +173,29 @@ jobs:
           reporter: github-pr-review
           fail_level: error
           yamllint_flags: .
+
+  lint-toml:
+    name: Lint TOML
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.toml == 'true' || needs.determine-changes.outputs.workflow_ci == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout the main repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install Taplo
+        run: cargo install taplo-cli@0.10.0 --locked
+
+      - name: Check TOML format
+        run: taplo fmt --check
+
+      - name: Lint TOML
+        run: taplo lint
 
   check-typos:
     name: Check typos
