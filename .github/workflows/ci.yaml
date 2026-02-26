@@ -35,8 +35,8 @@ jobs:
           persist-credentials: false
 
       - name: Determine changed files
-        uses: tj-actions/changed-files@7dee1b0c1557f278e5c7dc244927139d78c0e22a # v47.0.4
         id: changed-files
+        uses: tj-actions/changed-files@7dee1b0c1557f278e5c7dc244927139d78c0e22a # v47.0.4
         with:
           files_yaml: |
             src:
@@ -81,8 +81,8 @@ jobs:
           "$(go env GOPATH)/bin/actionlint" -color
 
       - name: Run actionlint (reviewdog)
-        uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
         if: github.event_name == 'pull_request'
+        uses: reviewdog/action-actionlint@0d952c597ef8459f634d7145b0b044a9699e5e43 # v1.71.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
@@ -145,8 +145,8 @@ jobs:
         run: npx --yes markdownlint-cli2 .
 
       - name: Set up reviewdog
-        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
         if: github.event_name == 'pull_request'
+        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
 
       - name: Lint Markdown (reviewdog)
         if: github.event_name == 'pull_request'
@@ -185,8 +185,8 @@ jobs:
             .github/**
 
       - name: Check spelling (reviewdog)
-        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
         if: github.event_name == 'pull_request'
+        uses: reviewdog/action-typos@d5eb1bbcd1b3bfde596f6eeb470322727862fe98 # v1.19.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review

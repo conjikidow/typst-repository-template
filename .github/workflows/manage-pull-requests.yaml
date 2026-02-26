@@ -36,6 +36,6 @@ jobs:
           python-version: '3.x'
 
       - name: Lint pull request title
+        run: cz check --message "$PR_TITLE"
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-        run: cz check --message "$PR_TITLE"
