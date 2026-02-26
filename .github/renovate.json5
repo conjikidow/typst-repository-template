@@ -16,6 +16,16 @@
       // automerge: true,
     }
   ],
+  regexManagers: [
+    {
+      fileMatch: ["^\\.github/workflows/ci\\.ya?ml$"],
+      matchStrings: [
+        "cargo install taplo-cli@(?<currentValue>\\S+) --locked",
+      ],
+      datasourceTemplate: "crate",
+      depNameTemplate: "taplo-cli",
+    },
+  ],
   "git-submodules": {
     enabled: true,
   },

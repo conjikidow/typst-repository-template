@@ -1,0 +1,4 @@
+include = ["**/*.toml"]
+
+[formatting]
+column_width = 120
