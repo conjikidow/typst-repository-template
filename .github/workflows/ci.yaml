@@ -95,8 +95,9 @@ jobs:
 
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@0dce2577a4760a2749d8cfb7a84b7d5585ebcb7d # v0.5.0
-        # with:
-        #   advanced-security: false  # must be false for private repo
+        with:
+          version: 'v1.22.0'
+          # advanced-security: false  # must be false for private repo
 
   lint-markdown:
     name: Lint Markdown
@@ -115,17 +116,19 @@ jobs:
 
       - name: Lint Markdown
         if: github.event_name != 'pull_request'
-        run: npx --yes markdownlint-cli2 .
+        run: npx --yes markdownlint-cli2@0.21.0 .
 
       - name: Set up reviewdog
         if: github.event_name == 'pull_request'
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
+        with:
+          reviewdog_version: 'v0.21.0'
 
       - name: Lint Markdown (reviewdog)
         if: github.event_name == 'pull_request'
         run: |
           markdownlint_rc=0
-          npx --yes markdownlint-cli2 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
+          npx --yes markdownlint-cli2@0.21.0 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
           reviewdog_rc=0
           reviewdog < /tmp/markdownlint-report.txt \
               -efm="%f:%l:%c %m" \
@@ -160,10 +163,12 @@ jobs:
       - name: Install uv
         if: github.event_name != 'pull_request'
         uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+        with:
+          version: '0.10.6'
 
       - name: Lint YAML
         if: github.event_name != 'pull_request'
-        run: uvx yamllint .
+        run: uvx --from "yamllint==1.38.0" yamllint .
 
       - name: Lint YAML (reviewdog)
         if: github.event_name == 'pull_request'
@@ -313,6 +318,7 @@ jobs:
         uses: commitizen-tools/setup-cz@578def531656e522cd8978e6df62d626593e0a5f # v0.7.0
         with:
           python-version: '3.x'
+          version: '4.13.9'
 
       - name: Lint commit messages on push
         if: github.event_name == 'push'
