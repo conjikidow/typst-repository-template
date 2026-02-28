@@ -61,7 +61,7 @@ jobs:
               - '**/*.toml'
               - .taplo.toml
             typst:
-              - '**/**.typ'
+              - '**/*.typ'
 
   lint-gh-actions:
     name: Lint GitHub Actions
