@@ -135,7 +135,6 @@ jobs:
               -efm="%f:%l %m" \
               -name=markdownlint \
               -reporter=github-pr-review \
-              -filter-mode=added \
               -fail-level=error || reviewdog_rc=$?
           if [ $markdownlint_rc -ne 0 ] && ! grep -Eq '^[^:]+:[0-9]+(:[0-9]+)? ' /tmp/markdownlint-report.txt; then
             echo "::error title=markdownlint::markdownlint failed before producing parseable diagnostics"
