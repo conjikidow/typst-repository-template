@@ -96,7 +96,7 @@ jobs:
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@71321a20a9ded102f6e9ce5718a2fcec2c4f70d8 # v0.5.2
         with:
-          version: 'v1.22.0'
+          version: 'v1.23.1'
           # advanced-security: false  # must be false for private repo
 
   lint-markdown:
@@ -126,6 +126,8 @@ jobs:
 
       - name: Lint Markdown (reviewdog)
         if: github.event_name == 'pull_request'
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           markdownlint_rc=0
           npx --yes markdownlint-cli2@0.21.0 . > /tmp/markdownlint-report.txt 2>&1 || markdownlint_rc=$?
@@ -141,8 +143,6 @@ jobs:
             exit $markdownlint_rc
           fi
           exit $reviewdog_rc
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint-yaml:
     name: Lint YAML
