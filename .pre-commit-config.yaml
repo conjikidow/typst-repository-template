@@ -18,17 +18,17 @@ repos:
     hooks:
       - id: markdownlint-cli2
 
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.38.0
-    hooks:
-      - id: yamllint
-        args: ["--strict", "-c=.yamllint.yaml"]
-
   - repo: https://github.com/ComPWA/taplo-pre-commit
     rev: v0.9.3
     hooks:
       - id: taplo-format
       - id: taplo-lint
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+        args: ["--strict", "-c=.yamllint.yaml"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -42,8 +42,8 @@ repos:
       - id: pretty-format-json
         args: ["--autofix", "--no-sort-keys"]
       - id: check-json
-      - id: check-yaml
       - id: check-toml
+      - id: check-yaml
       - id: check-xml
       - id: check-added-large-files
       - id: check-case-conflict

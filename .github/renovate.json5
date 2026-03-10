@@ -66,10 +66,10 @@
         '/^\\.github/workflows/ci\\.ya?ml$/',
       ],
       matchStrings: [
-        'markdownlint-cli2@(?<currentValue>\\S+)',
+        'renovate@(?<currentValue>\\S+)',
       ],
       datasourceTemplate: 'npm',
-      depNameTemplate: 'markdownlint-cli2',
+      depNameTemplate: 'renovate',
     },
     {
       customType: 'regex',
@@ -77,10 +77,10 @@
         '/^\\.github/workflows/ci\\.ya?ml$/',
       ],
       matchStrings: [
-        'renovate@(?<currentValue>\\S+)',
+        'markdownlint-cli2@(?<currentValue>\\S+)',
       ],
       datasourceTemplate: 'npm',
-      depNameTemplate: 'renovate',
+      depNameTemplate: 'markdownlint-cli2',
     },
     {
       customType: 'regex',
