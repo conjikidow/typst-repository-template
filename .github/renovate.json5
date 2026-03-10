@@ -77,6 +77,28 @@
         '/^\\.github/workflows/ci\\.ya?ml$/',
       ],
       matchStrings: [
+        'renovate@(?<currentValue>\\S+)',
+      ],
+      datasourceTemplate: 'npm',
+      depNameTemplate: 'renovate',
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^\\.github/workflows/ci\\.ya?ml$/',
+      ],
+      matchStrings: [
+        'json5@(?<currentValue>\\S+)',
+      ],
+      datasourceTemplate: 'npm',
+      depNameTemplate: 'json5',
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^\\.github/workflows/ci\\.ya?ml$/',
+      ],
+      matchStrings: [
         'taplo-cli@(?<currentValue>\\S+)',
       ],
       datasourceTemplate: 'crate',
