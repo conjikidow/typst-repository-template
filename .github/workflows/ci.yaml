@@ -351,7 +351,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Typst
-        uses: typst-community/setup-typst@f3792ba4fd5a663366a44b5a6559de6ecc91a520 # v5.0.0
+        uses: typst-community/setup-typst@63ac138db421d586de61f7f5ac3bcef6a2e6c78c # v5.1.0
         with:
           typst-version: ${{ matrix.typst-version }}
 
