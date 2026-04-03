@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Set up Commitizen
-        uses: commitizen-tools/setup-cz@b5732b16bea57feca2bd37bde05885a1880f71ac # v0.7.1
+        uses: commitizen-tools/setup-cz@35ba1f590034c467c30355832e6b5cf873b82f6c # v0.8.0
         with:
           python-version: '3.x'
           version: '4.13.9'
