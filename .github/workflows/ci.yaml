@@ -273,6 +273,21 @@ jobs:
           fail_level: error
           yamllint_flags: .
 
+  check-prek:
+    name: Check prek
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the main repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check prek
+        uses: j178/prek-action@53276d8b0d10f8b6672aa85b4588c6921d0370cc # v2.0.1
+        with:
+          extra-args: '--all-files --skip no-commit-to-branch'
+
   check-typos:
     name: Check typos
     runs-on: ubuntu-latest
