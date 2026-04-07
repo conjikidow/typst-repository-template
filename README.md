@@ -102,4 +102,4 @@ search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 ```
 
-For more details, see [conjikidow/bump-version](https://github.com/conjikidow/bump-version).
+For more details, see [conjikidow/bump-version-action](https://github.com/conjikidow/bump-version-action).
