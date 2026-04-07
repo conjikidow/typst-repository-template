@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  TYPST_MAIN_FILES: main.typ # Space-separated list of main files
+  TYPST_TARGET_FILES: main.typ # Space-separated list of Typst entrypoint files
 
 permissions:
   contents: read
@@ -395,7 +395,7 @@ jobs:
 
       - name: Build Typst files
         run: |
-          for file in $TYPST_MAIN_FILES; do
+          for file in $TYPST_TARGET_FILES; do
             out="build/${file%.typ}.pdf"
             mkdir -p "$(dirname "$out")"
             typst compile --root . "$file" "$out"

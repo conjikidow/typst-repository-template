@@ -1,0 +1,23 @@
+name: Generate Typst PDF Diff
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  TYPST_TARGET_FILES: main.typ # Space-separated list of Typst entrypoint files
+
+jobs:
+  generate-typst-pdf-diff:
+    name: Generate Typst PDF Diff
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Generate Typst PDF Diff
+        uses: conjikidow/typst-pdf-diff-action@6ed8dea723ad3d5c08d7fd776b99b2eaf49e9143 # v0.1.1
+        with:
+          target-files: ${{ env.TYPST_TARGET_FILES }}
+          typst-version: '^0.14.2'
