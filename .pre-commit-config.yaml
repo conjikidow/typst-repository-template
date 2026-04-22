@@ -3,35 +3,35 @@ default_stages: [pre-commit]
 
 repos:
   - repo: https://github.com/typstyle-rs/pre-commit-typstyle
-    rev: v0.14.4
+    rev: d7008a255d9482e7ff97af8283df0cc8ea1a11d0  # frozen: v0.14.4
     hooks:
       - id: typstyle
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.45.1
+    rev: cf5f1c29a8ac336af8568821ec41919923b05a83  # frozen: v1.45.1
     hooks:
       - id: typos
         args: ["--force-exclude"]
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.22.1
+    rev: 996abf60411a8d954288ac9856aae7602b80cbda  # frozen: v0.22.1
     hooks:
       - id: markdownlint-cli2
 
   - repo: https://github.com/ComPWA/taplo-pre-commit
-    rev: v0.9.3
+    rev: ade0f95ddcf661c697d4670d2cfcbe95d0048a0a  # frozen: v0.9.3
     hooks:
       - id: taplo-format
       - id: taplo-lint
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.38.0
+    rev: cba56bcde1fdd01c1deb3f945e69764c291a6530  # frozen: v1.38.0
     hooks:
       - id: yamllint
         args: ["--strict", "-c=.yamllint.yaml"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
       - id: fix-byte-order-marker
       - id: mixed-line-ending
@@ -58,7 +58,7 @@ repos:
       - id: no-commit-to-branch
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.13.10
+    rev: b5d5040f7980a5d2bce320d2a1ea1e04ac54b00c  # frozen: v4.13.10
     hooks:
       - id: commitizen
       - id: commitizen-branch
