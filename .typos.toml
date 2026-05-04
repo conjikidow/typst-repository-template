@@ -3,5 +3,5 @@ typ = "typ"
 
 [files]
 extend-exclude = [
-    "*.bib",
+  "*.bib",
 ]
