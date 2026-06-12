@@ -25,6 +25,10 @@ on:
         required: true
         default: main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   TYPST_TARGET_FILES: main.typ # Space-separated list of Typst entrypoint files
 
