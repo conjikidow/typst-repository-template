@@ -354,6 +354,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tool_name: typstyle
+          cleanup: 'false'
 
       - name: Check formatting
         run: |
