@@ -32,6 +32,8 @@ concurrency:
 env:
   TYPST_TARGET_FILES: main.typ # Space-separated list of Typst entrypoint files
 
+permissions: {}
+
 jobs:
   generate-typst-pdf-diff:
     name: Generate Typst PDF Diff
