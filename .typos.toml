@@ -4,4 +4,6 @@ typ = "typ"
 [files]
 extend-exclude = [
   "*.bib",
+  ".git",
 ]
+ignore-hidden = false
