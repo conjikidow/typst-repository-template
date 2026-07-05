@@ -38,6 +38,7 @@ jobs:
   generate-typst-pdf-diff:
     name: Generate Typst PDF Diff
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
       pull-requests: write
