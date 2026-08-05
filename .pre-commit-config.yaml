@@ -3,7 +3,7 @@ default_stages: [pre-commit]
 
 repos:
   - repo: https://github.com/typstyle-rs/pre-commit-typstyle
-    rev: f63f5e3699e92a1c54d0c0fbf5b515ed29f4c440  # frozen: v0.15.0
+    rev: 5cb34b47e1f37c973e0eaaf0b6219f5facfc5d39  # frozen: v0.15.1
     hooks:
       - id: typstyle
 
