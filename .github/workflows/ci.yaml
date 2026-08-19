@@ -61,7 +61,6 @@ jobs:
               - '**/*.json5'
             toml:
               - '**/*.toml'
-              - .tombi.toml
             yaml:
               - '**/*.yml'
               - '**/*.yaml'
