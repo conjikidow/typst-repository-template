@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Generate Typst PDF Diff
-        uses: conjikidow/typst-pdf-diff-action@4b76c00466ea01643faca6d13a8c78a5984b3d02 # v0.3.1
+        uses: conjikidow/typst-pdf-diff-action@ad2cd45132c5fd94fb6f5d8ef47aaf9528a16c35 # v0.3.2
         with:
           target-files: ${{ env.TYPST_TARGET_FILES }}
           typst-version: '^0.14.2'
