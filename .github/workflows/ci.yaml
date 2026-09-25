@@ -409,7 +409,7 @@ jobs:
           persist-credentials: false
 
       - name: Run typstyle
-        uses: typstyle-rs/typstyle-action@637f310823ba2247602dda2bdb9b25e037885970
+        uses: typstyle-rs/typstyle-action@29e8697c27707b43f1dc08d3aba17868e14a1ce2 # v1.0.1
 
       - name: Suggest typstyle changes (reviewdog)
         if: github.event_name == 'pull_request'
