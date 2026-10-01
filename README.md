@@ -18,11 +18,11 @@ The version-bump workflow creates pull requests, which requires the following se
 ## CI Setup
 
 The CI workflow compiles the main Typst source files.
-You can specify their paths as a space-separated list in [`ci.yaml`](.github/workflows/ci.yaml#L11):
+You can specify their paths as a space-separated list in the `TYPST_TARGET_FILES` variable of [`ci.yaml`](.github/workflows/ci.yaml):
 
 ```yaml
 env:
-  TYPST_MAIN_FILES: 'main.typ another.typ'
+  TYPST_TARGET_FILES: main.typ another.typ
 ```
 
 ## Pre-commit Hooks Setup
