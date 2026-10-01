@@ -2,7 +2,10 @@ name: Generate Typst PDF Diff
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types:
+      - opened
+      - synchronize
+      - reopened
     paths:
       - '**/*.typ'
       - '**/*.bib'
@@ -29,10 +32,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions: {}
+
 env:
   TYPST_TARGET_FILES: main.typ # Space-separated list of Typst entrypoint files
-
-permissions: {}
 
 jobs:
   generate-typst-pdf-diff:
