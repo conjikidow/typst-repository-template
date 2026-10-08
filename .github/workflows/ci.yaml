@@ -73,8 +73,8 @@ jobs:
             toml:
               - '**/*.toml'
             yaml:
-              - '**/*.yml'
               - '**/*.yaml'
+              - '**/*.yml'
               - '.yamllint.yaml'
             typst:
               - '**/*.typ'
