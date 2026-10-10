@@ -420,9 +420,6 @@ jobs:
         with:
           typst-version: ${{ matrix.typst-version }}
 
-      - name: Show tool versions
-        run: typst --version
-
       - name: Build Typst
         run: |
           for file in ${TYPST_TARGET_FILES}; do
