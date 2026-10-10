@@ -52,5 +52,5 @@ jobs:
         with:
           target-files: ${{ env.TYPST_TARGET_FILES }}
           typst-version: '^0.14.2'
-          base-ref: ${{ github.event_name == 'workflow_dispatch' && inputs.base-ref || '' }}
           head-ref: ${{ github.event_name == 'workflow_dispatch' && inputs.head-ref || '' }}
+          base-ref: ${{ github.event_name == 'workflow_dispatch' && inputs.base-ref || '' }}
