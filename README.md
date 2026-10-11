@@ -31,13 +31,13 @@ This template recommends using [`prek`](https://prek.j178.dev) (a faster, drop-i
 
 Install `prek` by following its [installation guide](https://prek.j178.dev/installation/), then install the hooks:
 
-```console
+```sh
 prek install
 ```
 
 If you prefer `pre-commit`, [install it](https://pre-commit.com/#install) and run:
 
-```console
+```sh
 pre-commit install
 ```
 
@@ -54,13 +54,13 @@ for checks, so it is recommended.
 
 Install Commitizen:
 
-```console
+```sh
 uv tool install commitizen
 ```
 
 Use Commitizen instead of `git commit`:
 
-```console
+```sh
 cz commit
 ```
 
