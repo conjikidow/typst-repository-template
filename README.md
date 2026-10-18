@@ -68,8 +68,8 @@ For more details, see [Commitizen documentation](https://commitizen-tools.github
 
 ## Version Bumping by Labels
 
-This repository is configured to automatically bump the version when a pull request is merged with one of the
-following labels:
+This repository is configured to automatically bump the version
+when a pull request is merged with one of the following labels:
 
 - `update::major`
 - `update::minor`
