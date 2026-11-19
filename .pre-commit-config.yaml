@@ -35,7 +35,7 @@ repos:
         args: [--fix]
 
   - repo: https://github.com/typstyle-rs/pre-commit-typstyle
-    rev: 4b63099824102a32da3f009f5a817f118cecd7ce  # frozen: v0.15.2
+    rev: 181d66c1744bd300e7bf62a48d7e6a749b328821  # frozen: v0.15.3
     hooks:
       - id: typstyle
 
